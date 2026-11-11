@@ -32,5 +32,25 @@ class PasswordTests(unittest.TestCase):
         self.assertLess(strength("aaaaaaaa"), strength("aA1!aA1!"))
 
 
+class PassphraseTests(unittest.TestCase):
+    def test_passphrase_word_count(self):
+        from password_generator import generate_passphrase
+
+        passphrase = generate_passphrase(words=5, separator="-", capitalize=False)
+        self.assertEqual(len(passphrase.split("-")), 5)
+
+    def test_passphrase_requires_three_words(self):
+        from password_generator import generate_passphrase
+
+        with self.assertRaises(ValueError):
+            generate_passphrase(words=2)
+
+    def test_passphrase_capitalizes_words(self):
+        from password_generator import generate_passphrase
+
+        for word in generate_passphrase(words=4, capitalize=True).split("-"):
+            self.assertEqual(word, word.capitalize())
+
+
 if __name__ == "__main__":
     unittest.main()
