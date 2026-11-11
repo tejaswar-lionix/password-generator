@@ -45,3 +45,20 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+WORDS = (
+    "amber", "brisk", "cobalt", "daring", "ember", "frost", "glide", "harbor",
+    "ivory", "jolly", "kite", "lunar", "mellow", "north", "orbit", "pepper",
+    "quartz", "river", "solar", "tidal", "umber", "vivid", "willow", "xenon",
+    "yonder", "zephyr", "anchor", "bloom", "crisp", "drift", "eagle", "flame",
+)
+
+
+def generate_passphrase(words=4, separator="-", capitalize=True):
+    if words < 3:
+        raise ValueError("passphrases need at least 3 words")
+    chosen = [secrets.choice(WORDS) for _ in range(words)]
+    if capitalize:
+        chosen = [word.capitalize() for word in chosen]
+    return separator.join(chosen)
