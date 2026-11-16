@@ -1,7 +1,7 @@
 import string
 import unittest
 
-from password_generator import entropy, generate, strength
+from password_generator import entropy, generate, strength, strength_label
 
 
 class PasswordTests(unittest.TestCase):
@@ -44,6 +44,27 @@ class EntropyTests(unittest.TestCase):
 
     def test_longer_password_beats_shorter(self):
         self.assertLess(entropy("abcdefgh"), entropy("abcdefghijklmnop"))
+
+
+class StrengthLabelTests(unittest.TestCase):
+    def test_empty_password_is_weak(self):
+        self.assertEqual(strength_label(""), "weak")
+
+    def test_low_entropy_is_weak(self):
+        self.assertEqual(strength_label("abcdefgh"), "weak")
+
+    def test_medium_entropy_is_strong(self):
+        self.assertEqual(strength_label("abcdefghijkl"), "strong")
+
+    def test_high_entropy_is_very_strong(self):
+        self.assertEqual(strength_label("aB3!aB3!aB3!aB3!"), "very strong")
+
+    def test_labels_are_ordered_by_entropy(self):
+        passwords = ["abcdefgh", "abcdefghijkl", "aB3!aB3!aB3!aB3!"]
+        labels = ["weak", "strong", "very strong"]
+        entropies = [entropy(password) for password in passwords]
+        self.assertEqual(entropies, sorted(entropies))
+        self.assertEqual([strength_label(password) for password in passwords], labels)
 
 
 class PassphraseTests(unittest.TestCase):
