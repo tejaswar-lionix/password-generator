@@ -55,6 +55,15 @@ def entropy(password):
     return round(len(password) * math.log2(pool), 2)
 
 
+def strength_label(password):
+    value = entropy(password)
+    if value < 40:
+        return "weak"
+    if value < 80:
+        return "strong"
+    return "very strong"
+
+
 def main():
     print(generate())
 
