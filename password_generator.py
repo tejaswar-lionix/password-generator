@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Generate strong random passwords with the secrets module."""
+import math
 import secrets
 import string
 
@@ -37,6 +38,21 @@ def strength(password):
         )
     )
     return len(password) * classes
+
+
+def entropy(password):
+    pool = 0
+    if any(char in string.ascii_lowercase for char in password):
+        pool += 26
+    if any(char in string.ascii_uppercase for char in password):
+        pool += 26
+    if any(char in string.digits for char in password):
+        pool += 10
+    if any(char in SYMBOLS for char in password):
+        pool += len(SYMBOLS)
+    if not password or pool == 0:
+        return 0.0
+    return round(len(password) * math.log2(pool), 2)
 
 
 def main():

@@ -7,6 +7,7 @@ Generate strong random passwords and passphrases.
 ```bash
 python3 password_generator.py
 python3 -c "from password_generator import generate; print(generate(24))"
+python3 -c "from password_generator import entropy; print(entropy('aB3!aB3!'))"
 ```
 
 ## Features
@@ -14,6 +15,7 @@ python3 -c "from password_generator import generate; print(generate(24))"
 - Cryptographically secure passwords via secrets
 - Configurable length and character sets
 - Word-based passphrases with generate_passphrase()
+- Entropy estimates in bits with entropy(password)
 
 ## Tests
 
