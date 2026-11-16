@@ -28,6 +28,12 @@ def generate(length=16, upper=True, lower=True, digits=True, symbols=True):
     return "".join(chars)
 
 
+def generate_pin(length=6):
+    if length < 4:
+        raise ValueError("PIN length must be at least 4")
+    return "".join(secrets.choice(string.digits) for _ in range(length))
+
+
 def strength(password):
     classes = sum(
         (
