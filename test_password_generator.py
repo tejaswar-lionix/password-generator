@@ -32,6 +32,29 @@ class PasswordTests(unittest.TestCase):
         self.assertLess(strength("aaaaaaaa"), strength("aA1!aA1!"))
 
 
+class PinTests(unittest.TestCase):
+    def test_default_length(self):
+        from password_generator import generate_pin
+
+        self.assertEqual(len(generate_pin()), 6)
+
+    def test_custom_length(self):
+        from password_generator import generate_pin
+
+        self.assertEqual(len(generate_pin(10)), 10)
+
+    def test_digits_only(self):
+        from password_generator import generate_pin
+
+        self.assertTrue(generate_pin(8).isdigit())
+
+    def test_rejects_short_pin(self):
+        from password_generator import generate_pin
+
+        with self.assertRaises(ValueError):
+            generate_pin(3)
+
+
 class EntropyTests(unittest.TestCase):
     def test_empty_password_has_zero_entropy(self):
         self.assertEqual(entropy(""), 0.0)
