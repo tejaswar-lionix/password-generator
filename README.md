@@ -20,6 +20,7 @@ python3 -c "from password_generator import strength_label; print(strength_label(
 - Word-based passphrases with generate_passphrase()
 - Entropy estimates in bits with entropy(password)
 - Strength labels with strength_label(password)
+- Common weak-password detection with is_common_weak(password)
 
 ## Tests
 

@@ -4,6 +4,25 @@ import unittest
 from password_generator import entropy, generate, strength, strength_label
 
 
+class CommonWeakTests(unittest.TestCase):
+    def test_known_weak_passwords_are_detected(self):
+        from password_generator import COMMON_WEAK, is_common_weak
+
+        for password in COMMON_WEAK:
+            self.assertTrue(is_common_weak(password))
+
+    def test_detection_ignores_case(self):
+        from password_generator import is_common_weak
+
+        self.assertTrue(is_common_weak("PaSsWoRd"))
+        self.assertTrue(is_common_weak("QWERTY"))
+
+    def test_strong_password_is_not_weak(self):
+        from password_generator import is_common_weak
+
+        self.assertFalse(is_common_weak("aB3!aB3!aB3!aB3!"))
+
+
 class PasswordTests(unittest.TestCase):
     def test_default_length(self):
         self.assertEqual(len(generate()), 16)
