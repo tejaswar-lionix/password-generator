@@ -5,6 +5,18 @@ import secrets
 import string
 
 SYMBOLS = "!@#$%^&*()-_=+"
+COMMON_WEAK = {
+    "password",
+    "123456",
+    "qwerty",
+    "letmein",
+    "admin",
+    "welcome",
+    "abc123",
+    "password1",
+    "iloveyou",
+    "111111",
+}
 
 
 def generate(length=16, upper=True, lower=True, digits=True, symbols=True):
@@ -68,6 +80,10 @@ def strength_label(password):
     if value < 80:
         return "strong"
     return "very strong"
+
+
+def is_common_weak(password):
+    return password.lower() in COMMON_WEAK
 
 
 def main():
