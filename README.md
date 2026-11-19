@@ -28,6 +28,10 @@ python3 -c "from password_generator import strength_label; print(strength_label(
 python3 -m unittest -q
 ```
 
+## Additional API
+
+- `assess(password)` returns entropy, strength label, and common-password status together.
+
 ## License
 
 MIT

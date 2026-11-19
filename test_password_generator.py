@@ -129,5 +129,19 @@ class PassphraseTests(unittest.TestCase):
             self.assertEqual(word, word.capitalize())
 
 
+class AssessTests(unittest.TestCase):
+    def test_flags_common_password(self):
+        from password_generator import assess
+
+        result = assess("password")
+        self.assertTrue(result["common"])
+        self.assertEqual(result["label"], "weak")
+
+    def test_empty_password(self):
+        from password_generator import assess
+
+        self.assertEqual(assess("")["entropy"], 0.0)
+
+
 if __name__ == "__main__":
     unittest.main()
