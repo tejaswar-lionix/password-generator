@@ -109,3 +109,12 @@ def generate_passphrase(words=4, separator="-", capitalize=True):
     if capitalize:
         chosen = [word.capitalize() for word in chosen]
     return separator.join(chosen)
+
+
+def assess(password):
+    """Return entropy, strength label, and common-password status together."""
+    return {
+        "entropy": entropy(password),
+        "label": strength_label(password),
+        "common": is_common_weak(password),
+    }
